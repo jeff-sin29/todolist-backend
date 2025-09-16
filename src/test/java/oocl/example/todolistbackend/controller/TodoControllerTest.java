@@ -52,5 +52,22 @@ class TodoControllerTest {
                 .andExpect(jsonPath("$[1].text").value("learn 2"));
     }
 
+    @Test
+    void should_return_todoEntity_when_create_todo_given_todo_correct_attribute() throws Exception{
+        String requestBody = """
+                {
+                    "text": "learn English"
+                }
+                """;
+
+        mockMvc.perform(post("/todos")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id").isNumber())
+                .andExpect(jsonPath("$.text").value("learn English"))
+                .andExpect(jsonPath("$.done").value(false));
+    }
+
 
 }

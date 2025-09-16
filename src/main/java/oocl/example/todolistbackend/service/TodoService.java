@@ -21,7 +21,8 @@ public class TodoService {
     }
 
     public TodoEntity addTodo(TodoEntity todoEntity) {
-        todoRepository.addTodo(todoEntity);
+        todoEntity.setDone(false);
+        return todoRepository.addTodo(todoEntity);
     }
 
     public void clearTodoList() {

@@ -7,7 +7,7 @@ import java.util.List;
 public interface TodoRepository {
     public List<TodoEntity> getTodos();
 
-    public void addTodo(TodoEntity todoEntity);
+    public TodoEntity addTodo(TodoEntity todoEntity);
 
     public void clear();
 

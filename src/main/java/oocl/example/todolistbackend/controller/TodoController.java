@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
@@ -26,12 +27,12 @@ public class TodoController {
         return ResponseEntity.ok(todoService.getTodos());
     }
 
-//    @PostMapping("/todos")
-//    public ResponseEntity<TodoEntity> createTodo(CreateTodoReq createTodoReq) {
-//        TodoEntity todoEntity = new TodoEntity();
-//        BeanUtils.copyProperties(createTodoReq, todoEntity);
-//        TodoEntity savedTodo = todoService.addTodo(todoEntity);
-//        return ResponseEntity.status(201).body(savedTodo);
-//    }
+    @PostMapping("/todos")
+    public ResponseEntity<TodoEntity> createTodo(@RequestBody CreateTodoReq createTodoReq) {
+        TodoEntity todoEntity = new TodoEntity();
+        BeanUtils.copyProperties(createTodoReq, todoEntity);
+        TodoEntity savedTodo = todoService.addTodo(todoEntity);
+        return ResponseEntity.status(201).body(savedTodo);
+    }
 
 }

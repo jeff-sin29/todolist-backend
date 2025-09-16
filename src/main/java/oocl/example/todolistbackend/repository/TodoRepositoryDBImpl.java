@@ -19,8 +19,8 @@ public class TodoRepositoryDBImpl implements TodoRepository {
     }
 
     @Override
-    public void addTodo(TodoEntity todo) {
-        todoJpaRepository.save(todo);
+    public TodoEntity addTodo(TodoEntity todo) {
+        return todoJpaRepository.save(todo);
     }
 
     @Override
