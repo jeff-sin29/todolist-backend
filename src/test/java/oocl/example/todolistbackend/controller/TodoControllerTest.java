@@ -97,7 +97,23 @@ class TodoControllerTest {
                 .andExpect(status().isUnprocessableEntity());
     }
 
-    
+    @Test
+    void should_ignore_client_sent_id_when_create_todo() throws Exception{
+        String requestBody = """
+                {
+                    "id": 100,
+                    "text": "learn ball"
+                }
+                """;
 
+        mockMvc.perform(post("/todos")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id").isNumber())
+                .andExpect(jsonPath("$.id").value(org.hamcrest.Matchers.not(100)))
+                .andExpect(jsonPath("$.text").value("learn ball"))
+                .andExpect(jsonPath("$.done").value(false));
+    }
 
 }
