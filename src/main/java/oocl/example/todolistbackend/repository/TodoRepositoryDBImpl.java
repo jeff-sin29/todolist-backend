@@ -38,6 +38,13 @@ public class TodoRepositoryDBImpl implements TodoRepository {
     }
 
     @Override
+    public void deleteTodoById(long id) {
+        if (todoJpaRepository.existsById(id)) {
+            todoJpaRepository.deleteById(id);
+        }
+    }
+
+    @Override
     public void clear() {
         todoJpaRepository.deleteAll();
     }

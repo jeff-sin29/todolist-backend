@@ -171,4 +171,21 @@ class TodoControllerTest {
                 .andExpect(status().isUnprocessableEntity());
     }
 
+    @Test
+    void should_return_204_when_delete_todo_given_todo_id() throws Exception{
+        TodoEntity todoEntity = new TodoEntity();
+        todoEntity.setText("learn chinese");
+        todoRepository.addTodo(todoEntity);
+
+        mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete("/todos/{id}", todoEntity.getId())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    void should_return_404_when_delete_todo_given_todo_id_not_exist() throws Exception{
+        mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete("/todos/{id}", 100)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
 }

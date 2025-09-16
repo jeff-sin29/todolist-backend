@@ -24,4 +24,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     public void handleIncompleteUpdatePayloadException(IncompleteUpdatePayloadException ex) {}
 
+    @ExceptionHandler(DeleteInNonExistItemException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public void handleDeleteInNonExistItemException(DeleteInNonExistItemException ex) {}
 }

@@ -42,4 +42,11 @@ public class TodoController {
         return ResponseEntity.status(200).body(todoService.updateTodoById(id, todoEntity));
     }
 
+    @DeleteMapping("/todos/{id}")
+    public ResponseEntity<Void> deleteTodo(@PathVariable Long id) {
+        // Since there's no delete method in the service/repository, we'll just return 204 No Content
+        todoService.deleteTodoById(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }
