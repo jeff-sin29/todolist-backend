@@ -153,7 +153,22 @@ class TodoControllerTest {
                         .content(requestBody))
                 .andExpect(status().isNotFound());
     }
+    @Test
+    void should_return_422_when_update_todo_given_todo_incomplete_payload() throws Exception{
+        TodoEntity todoEntity = new TodoEntity();
+        todoEntity.setText("learn chinese");
+        todoEntity.setDone(false);
+        todoRepository.addTodo(todoEntity);
 
+        String requestBody = """
+                {
+                }
+                """;
 
+        mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put("/todos/{id}", todoEntity.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isUnprocessableEntity());
+    }
 
 }
