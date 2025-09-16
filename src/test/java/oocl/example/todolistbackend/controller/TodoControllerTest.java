@@ -69,5 +69,35 @@ class TodoControllerTest {
                 .andExpect(jsonPath("$.done").value(false));
     }
 
+    @Test
+    void should_return_422_when_create_todo_given_todo_text_field_is_null() throws Exception{
+        String requestBody = """
+                {
+                    "done": false
+                }
+                """;
+
+        mockMvc.perform(post("/todos")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
+    void should_return_422_when_create_todo_given_todo_text_field_is_empty() throws Exception{
+        String requestBody = """
+                {
+                    "text": ""
+                }
+                """;
+
+        mockMvc.perform(post("/todos")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+    
+
 
 }
