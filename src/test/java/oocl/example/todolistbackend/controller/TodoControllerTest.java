@@ -116,4 +116,44 @@ class TodoControllerTest {
                 .andExpect(jsonPath("$.done").value(false));
     }
 
+    @Test
+    void should_return_entity_when_update_todo_given_todo_correct_attribute() throws Exception{
+        TodoEntity todoEntity = new TodoEntity();
+        todoEntity.setText("learn chinese");
+        todoEntity.setDone(false);
+        todoRepository.addTodo(todoEntity);
+
+        String requestBody = """
+                {
+                    "text": "learn English",
+                    "done": true
+                }
+                """;
+
+        mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put("/todos/{id}", todoEntity.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(todoEntity.getId()))
+                .andExpect(jsonPath("$.text").value("learn English"))
+                .andExpect(jsonPath("$.done").value(true));
+    }
+
+    @Test
+    void should_return_404_when_update_todo_given_todo_id_not_exist() throws Exception{
+        String requestBody = """
+                {
+                    "text": "learn English",
+                    "done": true
+                }
+                """;
+
+        mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put("/todos/{id}", 100)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isNotFound());
+    }
+
+
+
 }

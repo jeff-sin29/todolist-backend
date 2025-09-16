@@ -3,6 +3,7 @@ package oocl.example.todolistbackend.controller;
 import lombok.Getter;
 import lombok.Setter;
 import oocl.example.todolistbackend.dto.CreateTodoReq;
+import oocl.example.todolistbackend.dto.UpdateTodoReq;
 import oocl.example.todolistbackend.entity.TodoEntity;
 import oocl.example.todolistbackend.service.TodoService;
 import org.springframework.beans.BeanUtils;
@@ -32,6 +33,13 @@ public class TodoController {
         BeanUtils.copyProperties(createTodoReq, todoEntity);
         TodoEntity savedTodo = todoService.addTodo(todoEntity);
         return ResponseEntity.status(201).body(savedTodo);
+    }
+
+    @PutMapping("/todos/{id}")
+    public ResponseEntity<TodoEntity> updateTodo(@PathVariable Long id, @RequestBody UpdateTodoReq updateTodoReq) {
+        TodoEntity todoEntity = new TodoEntity();
+        BeanUtils.copyProperties(updateTodoReq, todoEntity);
+        return ResponseEntity.status(200).body(todoService.updateTodoById(id, todoEntity));
     }
 
 }

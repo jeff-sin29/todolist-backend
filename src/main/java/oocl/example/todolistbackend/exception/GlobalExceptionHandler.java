@@ -16,4 +16,12 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     public void handleEmployeeNotInAgeRangeException(MissingTextFieldException ex) {}
 
+    @ExceptionHandler(UpdateNonExistingIdException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public void handleEmployeeAgeSalaryException(UpdateNonExistingIdException ex) {}
+
+    @ExceptionHandler(IncompleteUpdatePayloadException.class)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    public void handleIncompleteUpdatePayloadException(IncompleteUpdatePayloadException ex) {}
+
 }

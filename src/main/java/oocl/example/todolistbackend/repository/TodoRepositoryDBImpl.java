@@ -24,6 +24,20 @@ public class TodoRepositoryDBImpl implements TodoRepository {
     }
 
     @Override
+    public TodoEntity getTodoById(long id) {
+        return todoJpaRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public TodoEntity updateTodoById(long id, TodoEntity updatedTodoEntity) {
+        if (todoJpaRepository.existsById(id)) {
+            updatedTodoEntity.setId(id);
+            return todoJpaRepository.save(updatedTodoEntity);
+        }
+        return null;
+    }
+
+    @Override
     public void clear() {
         todoJpaRepository.deleteAll();
     }

@@ -11,4 +11,8 @@ public interface TodoRepository {
 
     public void clear();
 
+    public TodoEntity getTodoById(long id);
+
+    public TodoEntity updateTodoById(long id, TodoEntity updatedTodoEntity);
+
 }
