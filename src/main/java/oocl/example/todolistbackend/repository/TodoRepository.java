@@ -5,15 +5,15 @@ import oocl.example.todolistbackend.entity.TodoEntity;
 import java.util.List;
 
 public interface TodoRepository {
-    public List<TodoEntity> getTodos();
+    List<TodoEntity> getTodos();
 
-    public TodoEntity addTodo(TodoEntity todoEntity);
+    TodoEntity addTodo(TodoEntity todoEntity);
 
-    public void clear();
+    void clear();
 
-    public TodoEntity getTodoById(long id);
+    TodoEntity getTodoById(long id);
 
-    public TodoEntity updateTodoById(long id, TodoEntity updatedTodoEntity);
+    TodoEntity updateTodoById(long id, TodoEntity updatedTodoEntity);
 
-    public void deleteTodoById(long id);
+    void deleteTodoById(long id);
 }
